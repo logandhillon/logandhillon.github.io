@@ -1,7 +1,7 @@
 "use client";
 
-import { Button, Card, CardFooter, Image, Skeleton } from "@heroui/react";
-import { ArrowCircleUpRight } from "@phosphor-icons/react";
+import { Button, Card, CardFooter, Image } from "@heroui/react";
+import { ArrowCircleDown, ArrowCircleUpRight } from "@phosphor-icons/react";
 import Link from "next/link";
 import { FC } from "react";
 
@@ -12,6 +12,8 @@ type ProjectCoverProps = {
   imgpath: string;
   href: string;
   className?: string;
+  imgHeight?: number;
+  isDownload?: boolean;
 };
 
 const ProjectCover: FC<ProjectCoverProps> = ({
@@ -21,6 +23,8 @@ const ProjectCover: FC<ProjectCoverProps> = ({
   imgpath,
   href,
   className,
+  imgHeight,
+  isDownload,
 }) => (
   <div>
     <Card isFooterBlurred className={className}>
@@ -29,17 +33,22 @@ const ProjectCover: FC<ProjectCoverProps> = ({
         alt={title + " cover image"}
         src={"/images/proj/" + imgpath}
         isZoomed
+        isBlurred
+        className="rounded-none object-cover object-top"
+        height={imgHeight}
       />
-      <CardFooter className="absolute text-white bg-black/30 bottom-0 border-t-1 border-default-600 z-10 justify-between px-6">
+      <CardFooter className="text-white bg-black/30 border-t-1 border-default-600 z-10 justify-between px-6">
         <div className="space-y-1">
-          <p className="text-xs uppercase font-bold text-default-400">
-            {genre}
-          </p>
+          <p className="text-xs uppercase font-bold text-white/50">{genre}</p>
           <h4 className="font-bold text-lg">{title}</h4>
-          <p className="text-xs text-default-400">{description}</p>
+          <p className="text-xs text-white/60">{description}</p>
         </div>
         <Button isIconOnly color="primary" radius="full" as={Link} href={href}>
-          <ArrowCircleUpRight weight="fill" size={28} />
+          {isDownload ? (
+            <ArrowCircleDown weight="fill" size={28} />
+          ) : (
+            <ArrowCircleUpRight weight="fill" size={28} />
+          )}
         </Button>
       </CardFooter>
     </Card>
@@ -55,7 +64,17 @@ export default function Page() {
         description="A modern-looking periodic table, right in your browser!"
         imgpath="periodictable.png"
         href="https://logandhillon.github.io/periodic-table/"
-        className="bg-black"
+        className="bg-gradient-to-tr from-purple-950 to-orange-950"
+      />
+      <ProjectCover
+        title="Internet Communication Exchange (ICX)"
+        genre="Desktop application"
+        description="IRC: recreated for the 21st century."
+        imgpath="icx.png"
+        href="https://logandhillon.github.io/icx/"
+        className="bg-gradient-to-b from-blue-500 to-green-500"
+        imgHeight={384}
+        isDownload
       />
     </section>
   );
