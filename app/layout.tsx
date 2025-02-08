@@ -33,9 +33,7 @@ export default function RootLayout({
       <body className={inter.className}>
         <Providers>
           <Header />
-          <div className="flex flex-col bg-defaut-50">
-            <main className="flex-grow">{children}</main>
-          </div>
+          <div className="bg-defaut-50 min-h-screen">{children}</div>
           <Footer />
         </Providers>
       </body>
